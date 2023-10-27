@@ -44,6 +44,48 @@ python -m unittest discover srv
 3. Run the service by executing `python srv/main.py`.
 4. Check the service status by quering `/status` endpoint (optional).
 
+### How to run the microservice in debug mode
+
+1. Install `debugpy`:
+```sh
+pip install debugpy
+```
+
+2. Run the microservice with `debugpy` module:
+```sh
+python -m debugpy --listen 0.0.0.0:2345 main.py
+```
+
+3. Connect with your debugger.
+
+#### Debugger configuration for VSCode
+
+1. Install official Python extension.
+2. Configure the debugger:
+```json
+{   
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: connect to remote",
+            "type": "python",
+            "request": "attach",     
+            "justMyCode": true,
+            "connect": {
+                "host": "localhost",
+                "port": 2345
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/srv",
+                    "remoteRoot": "/path/in/container"
+                }
+            ]
+        }
+    ]
+}
+```
+
 ### License
 
 GNU GPL v2 or any later version.
